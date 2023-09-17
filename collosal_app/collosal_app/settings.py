@@ -25,8 +25,7 @@ SECRET_KEY = 'django-insecure-i+99rp&w9*3q=v02o&f5w!t1m3z7!_9hj7gr#%76p2-+n8bb+u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -38,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'chapter_3',
+    'djmoney',
 ]
 
 MIDDLEWARE = [
@@ -81,7 +82,7 @@ env = environ.Env()
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = env('SECRET_KEY', default="7c)b2i=qn(-ir6w)!&-lt)67+0%dfx%6l44&=!*^01611rc=(2")
 DEBUG = os.environ.get("DEBUG", True)
-ALLOWED_HOSTS = ['*']
+
 DATABASES = {
         'default': env.db("DATABASE_URL")
 
@@ -128,3 +129,13 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Chapter 3 - Third Party Field Type
+# Django-Money Field Package
+CURRENCIES = ('USD', 'EUR')
+CURRENCY_CHOICES = [
+    ('USD', 'USD $'),
+    ('EUR', 'EUR €'),
+]
+
+AUTH_USER_MODEL = 'chapter_3.Seller'
