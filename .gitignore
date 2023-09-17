@@ -9,7 +9,7 @@ __pycache__
 media/
 # Environments #
 .env
-virtual_env/
+collosal/
 # Visual Studio and Visual Studio Code #
 *.suo
 *.pyproj
