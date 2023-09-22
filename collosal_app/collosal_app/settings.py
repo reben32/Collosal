@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-
+import os
+import posixpath
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-i+99rp&w9*3q=v02o&f5w!t1m3z7!_9hj7gr#%76p2-+n8bb+u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'chapter_3',
     'djmoney',
+    'chapter_4',
 ]
 
 MIDDLEWARE = [
@@ -123,7 +125,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_URL = '/staticfiles/'
+STATIC_ROOT = os.path.join(str(BASE_DIR), 'staticfiles')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(str(BASE_DIR), 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
