@@ -24,6 +24,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('',TemplateView.as_view(template_name = 'chapter_4/index.html'),kwargs={'sub_title': 'I am the sub title.'}),
     path('', include('chapter_4.urls')),
+    path('', include('chapter_5.urls')),
+    path('', include('chapter_6.urls')),
+
+
 ]
 # if settings.DEBUG:
 #     urlpatterns += static(

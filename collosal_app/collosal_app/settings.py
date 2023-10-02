@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 import posixpath
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -24,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-i+99rp&w9*3q=v02o&f5w!t1m3z7!_9hj7gr#%76p2-+n8bb+u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -41,6 +43,9 @@ INSTALLED_APPS = [
     'chapter_3',
     'djmoney',
     'chapter_4',
+    'chapter_5',
+    'chapter_6',
+
 ]
 
 MIDDLEWARE = [
@@ -126,7 +131,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATIC_URL = '/staticfiles/'
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(str(BASE_DIR), 'staticfiles')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(str(BASE_DIR), 'media')
