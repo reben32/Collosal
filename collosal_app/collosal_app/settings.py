@@ -163,5 +163,4 @@ AUTH_USER_MODEL = 'chapter_3.Seller'
 
 EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
 EMAIL_HOST_USER = '57162b25fbaf2b'
-EMAIL_HOST_PASSWORD = '7ad99356f73276'
 EMAIL_PORT = '2525'
