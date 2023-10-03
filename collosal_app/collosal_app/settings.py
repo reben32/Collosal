@@ -13,7 +13,13 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 import posixpath
+from django.contrib.messages import constants as messages
 
+
+MINOR = 50
+MAJOR = 60
+CRITICAL = 70
+MESSAGE_TAGS = { messages.INFO: 'information',MINOR: 'minor',MAJOR: 'major',CRITICAL: 'critical',}
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,6 +33,11 @@ SECRET_KEY = 'django-insecure-i+99rp&w9*3q=v02o&f5w!t1m3z7!_9hj7gr#%76p2-+n8bb+u
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+if DEBUG:
+    MESSAGE_LEVEL = messages.DEBUG
+else:
+    pass
+
 
 ALLOWED_HOSTS = ['*']
 
@@ -45,6 +56,7 @@ INSTALLED_APPS = [
     'chapter_4',
     'chapter_5',
     'chapter_6',
+    'chapter_7',
 
 ]
 
@@ -78,7 +90,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'collosal_app.wsgi.application'
 
-
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 import os
@@ -150,3 +162,8 @@ CURRENCY_CHOICES = [
 ]
 
 AUTH_USER_MODEL = 'chapter_3.Seller'
+
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_HOST_USER = '57162b25fbaf2b'
+EMAIL_HOST_PASSWORD = '7ad99356f73276'
+EMAIL_PORT = '2525'

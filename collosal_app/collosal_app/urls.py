@@ -26,6 +26,7 @@ urlpatterns = [
     path('', include('chapter_4.urls')),
     path('', include('chapter_5.urls')),
     path('', include('chapter_6.urls')),
+    path('', include('chapter_7.urls')),
 
 
 ]
