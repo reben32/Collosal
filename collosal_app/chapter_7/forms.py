@@ -2,17 +2,17 @@
 from django import forms
 from django.conf import settings
 from django.core.exceptions import ValidationError
-#from django.core.files.storage import FileSystemStorage
+from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
 from django.core.mail import (
     EmailMessage,
-    #EmailMultiAlternatives
+    EmailMultiAlternatives
 )
 from django.core.validators import EmailValidator, validate_email
 from django.forms import Form, ModelForm, formset_factory
 from django.template.loader import get_template
 
-# from xhtml2pdf import pisa
+from xhtml2pdf import pisa
 
 from .fields import MultipleEmailField
 from chapter_3.models import Vehicle
@@ -228,12 +228,12 @@ class ContactForm(Form):
         data = self.cleaned_data
 
         # Used for Sending Template Based Emails
-        #template = get_template('chapter_7/emails/plain_text_format.html')
-        #template = get_template('chapter_7/emails/html_format.html')
-        #template = get_template('chapter_7/emails/new_contact_form_entry.html')
-        #context = {
-        #    'data': data
-        #}
+        # template = get_template('chapter_7/emails/plain_text_format.html')
+        # template = get_template('chapter_7/emails/html_format.html')
+        template = get_template('chapter_7/emails/new_contact_form_entry.html')
+        context = {
+           'data': data
+        }
 
         # Used for Plain Text Format
         msg_body = '<b>Hello World HTML</b>'
@@ -242,45 +242,44 @@ class ContactForm(Form):
         #msg_body = '<b>Hello World</b>'
 
         # Used for Template Based Email
-        #msg_body = template.render()
-        #msg_body = template.render(context)
+        # msg_body = template.render()
+        msg_body = template.render(context)
 
         # Format Email Headers
-        email = EmailMessage(
-            subject = 'New Contact Form Entry',
-            body = msg_body,
-            from_email = 'no-reply@example.com',
-            reply_to = ['no-reply@example.com'],
-            cc = [],
-            bcc = [],
-            to = [data['email_1']],
-            attachments = [],
-            headers = {},
-        )
+        # email = EmailMessage(
+        #     subject = 'New Contact Form Entry',
+        #     body = msg_body,
+        #     from_email = 'no-reply@example.com',
+        #     reply_to = ['no-reply@example.com'],
+        #     cc = [],
+        #     bcc = [],
+        #     to = [data['email_1']],
+        #     attachments = [],
+        #     headers = {},
+        # )
 
-        #email = EmailMultiAlternatives(
-        #    subject = 'New Contact Form Entry',
-        #    body = msg_body,
-        #    from_email = 'no-reply@example.com',
-        #    reply_to = ['no-reply@example.com'],
-        #    cc = [],
-        #    bcc = [],
-        #    to = [data['email_1']],
-        #    attachments = [],
-        #    headers = {},
-        #)
+        email = EmailMultiAlternatives(
+           subject = 'New Contact Form Entry',
+           body = msg_body,
+           from_email = 'no-reply@example.com',
+           reply_to = ['no-reply@example.com'],
+           cc = [],
+           bcc = [],
+           to = [data['email_1']],
+           attachments = [],
+           headers = {},
+        )
 
         # Change Message From Text/Plain to Text/HTML
         email.content_subtype = 'html' # Plain Text Emails
         #email.content_subtype = 'html' # HTML and Rich Text Emails
 
         #email = EmailMultiAlternatives(subject=subject, body=text_body, to=[user.email])
-        #email.attach_alternative('Hello World', 'text/plain')
+        email.attach_alternative('Hello World', 'text/plain')
 
         # Used for Attaching a PDF Document (or Any File Type)
-        #email.attach_file('static/chapter_7/pdf/example.pdf')
-        #email.attach_file(settings.STATIC_ROOT + '/chapter_7/pdf/example.pdf')
-
+        # email.attach_file('static/chapter_7/pdf/example.pdf')
+        email.attach_file(settings.STATIC_ROOT + '/chapter_7/pdf/example.pdf')
         # Actually Sends the Email
         email.send(fail_silently = True)
 
@@ -293,7 +292,7 @@ class ContactForm(Form):
         template = get_template('chapter_7/pdfs/pdf_template.html')
 
         # Used for Template Based PDF - Static PDF Example
-        #dest = open(settings.STATIC_ROOT + '/chapter_7/pdf/test.pdf', 'w+b')
+        # dest = open(settings.STATIC_ROOT + '/chapter_7/pdf/test.pdf', 'w+b')
 
         # Used for Template Based PDF w/ Context - Dynamic PDF Example
         data = self.cleaned_data
@@ -305,7 +304,7 @@ class ContactForm(Form):
         dest = open(settings.STATIC_ROOT + '/chapter_7/pdf/test_2.pdf', 'w+b')
 
         # Used for Template Based PDF - Static PDF Example
-        #html = template.render()
+        # html = template.render()
 
         # Used for Template Based PDF w/ Context - Dynamic PDF Example
         html = template.render(context)
@@ -317,11 +316,11 @@ class ContactForm(Form):
         )
 
         # Optional Error Catching
-        #if result.err:
-        #    print('PDF Error Found')
-        #    return HttpResponse(
-        #        'We had problems generating the PDF. Error found {0}'.format(result.err)
-        #    )
+        if result.err:
+           print('PDF Error Found')
+           return HttpResponse(
+               'We had problems generating the PDF. Error found {0}'.format(result.err)
+           )
 
         return HttpResponse(result.err)
 

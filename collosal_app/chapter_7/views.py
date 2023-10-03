@@ -118,9 +118,9 @@ class FormClassView(FormView):
                 'form': form,
             }
 
-        #form.send_email(request)
+        # form.send_email(request)
         form.send_email(request)
-        return TemplateResponse(request,self.template_name,context)
-        #form.generate_pdf(request)
+        # return TemplateResponse(request,self.template_name,context)
+        form.generate_pdf(request)
 
         return TemplateResponse(request, self.template_name, context)
