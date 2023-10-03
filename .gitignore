@@ -8,7 +8,7 @@ __pycache__
 # Media – User Generated Content #
 media/
 # Environments #
-.env
+*.env
 collosal/
 # Visual Studio and Visual Studio Code #
 *.suo
