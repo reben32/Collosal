@@ -9,6 +9,7 @@ __pycache__
 media/
 # Environments #
 *.env
+collosal_app\collosal_app\.env
 collosal/
 # Visual Studio and Visual Studio Code #
 *.suo
